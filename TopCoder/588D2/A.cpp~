@@ -1,0 +1,17 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <algorithm>
+using namespace std;
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define repf(i, a, b) for (int i = (a); i <= (b); i++)
+#define repd(i, a, b) for (int i = (a); i >= (b); i--)
+#define swap(a, b) {int t = a; a = b; b = t;}
+#define mc(a) memset(a, 0, sizeof(a))
+#define MAXN 100
+
+
