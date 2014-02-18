@@ -1,7 +1,7 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
-*  File:        11520.cpp
-*  Create Date: 2014-02-18 15:42:33
+*  File:        uvalive2995.cpp
+*  Create Date: 2014-02-18 15:12:39
 *  Descripton:   
 */
 
@@ -58,27 +58,65 @@ const int fx[] = {-1,-1,-1,0,0,1,1,1};
 const int fy[] = {-1,0,1,-1,1,-1,0,1};
 /****** TEMPLATE ENDS *******/
 
-const int N = 11;
+const int N = 10;
 
-char mat[N][N];
-int t, n;
+int n;
+char pos[N][N][N];
+char view[6][N][N];
+
+char read_char() {
+	char ch;
+	while (1) {
+		ch = getchar();
+		if ((ch >= 'A' && ch <= 'Z') || ch == '.') return ch;
+	}
+}
+
+void get(int k, int i, int j, int len, int &x, int &y, int &z) {
+	if (k == 0) { x = len; y = j; z = i; }
+	else if (k == 1) { x = n - 1 - j; y = len; z = i; }
+	else if (k == 2) { x = n - 1 - len; y = n - 1 - j; z = i; }
+	else if (k == 3) { x = j; y = n - 1 - len; z = i; }
+	else if (k == 4) { x = n - 1 - i; y = j; z = len; }
+	else { x = i; y = j; z = n - 1 - len; }
+}
 
 int main() {
-	RI(t);
-	rep(cas, t) {
-		RI(n);
-		rep(i, n) RS(mat[i]);
-		rep(i, n) rep(j, n) if (mat[i][j] == '.')
-			for (char ch = 'A'; ch <= 'Z'; ch++) {
-			bool ok = true;
-			if (i > 0 && mat[i - 1][j] == ch) ok = false;
-			if (i < n - 1 && mat[i + 1][j] == ch) ok = false;
-			if (j > 0 && mat[i][j - 1] == ch) ok = false;
-			if (j < n - 1 && mat[i][j + 1] == ch) ok = false;
-			if (ok) { mat[i][j] = ch; break; }
+	while (~RI(n) && n) {
+		rep(i, n) rep(k, 6) rep(j, n) view[k][i][j] = read_char();
+		rep(i, n) rep(j, n) rep(k, n) pos[i][j][k] = '#';
+
+		rep(k, 6) rep(i, n) rep(j, n) if (view[k][i][j] == '.')
+			rep(p, n) {
+				int x, y, z;
+				get(k, i, j, p, x, y, z);
+				pos[x][y][z] = '.';
+			}
+
+		while (1) {
+			bool done = true;
+			rep(k, 6) rep(i, n) rep(j, n) if (view[k][i][j] != '.') {
+				rep(p, n) {
+					int x, y, z;
+					get(k, i, j, p, x, y, z);
+					if (pos[x][y][z] == '.') continue;
+					if (pos[x][y][z] == '#') {
+						pos[x][y][z] = view[k][i][j];
+						break;
+					}
+					if (pos[x][y][z] == view[k][i][j]) break;
+					pos[x][y][z] = '.';
+					done = false;
+				}
+			}
+			if (done) break;
 		}
-		printf("Case %d:\n", cas+1);
-		rep(i, n) puts(mat[i]);
+
+		int ans = 0;
+		rep(i, n) rep(j, n) rep(k, n)
+			if (pos[i][j][k] != '.') ans++;
+
+		printf("Maximum weight: %d gram(s)\n", ans);
 	}
 	return 0;
 }
