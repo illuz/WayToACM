@@ -5,7 +5,7 @@ Root :: AOAPC I: Beginning Algorithm Contests -- Training Guide (Rujia Liu) :: C
   
 下面题目地址：http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=497  
   
-所有代码地址：https://github.com/illuz/WayToACM/tree/master/ACM_CODE/Training%20Guide/3_Data_Structures/3.1.1.Examples  
+所有代码地址：https://github.com/illuz/WayToACM/tree/master/ACM_CODE/lrj_Training_Guide/3_Data_Structures/3.1.1.Examples  
   
 ---  
   
