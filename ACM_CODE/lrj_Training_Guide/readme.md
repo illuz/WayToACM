@@ -1,5 +1,4 @@
-Root :: AOAPC I: Beginning Algorithm Contests -- Training Guide (Rujia Liu)
-===
+### Root :: AOAPC I: Beginning Algorithm Contests -- Training Guide (Rujia Liu)
 
 * This is a simple & imperfect uva oj code folder...  
 * I am just a newer(ruocai). Please contact me if there are some wrong...  
