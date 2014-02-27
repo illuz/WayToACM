@@ -16,7 +16,7 @@ using namespace std;
 const int N = 760;
 
 int arr[N][N];
-int k, tot;
+int k;
 
 struct Item {
 	int s, b;
@@ -28,12 +28,12 @@ struct Item {
 void merge(int r) {
 	priority_queue<Item> q;
 	rep (i, k)
-		q.push( (Item){arr[0][i] + arr[r][0], i} );
+		q.push( (Item){arr[0][i] + arr[r][0], 0} );
 	rep (i, k) {
 		Item tmp = q.top();
 		q.pop();
 		arr[0][i] = tmp.s;
-		if (tmp.b < k) {
+		if (tmp.b + 1 < k) {
 			tmp.s += arr[r][tmp.b + 1] - arr[r][tmp.b];
 			tmp.b++;
 			q.push(tmp);
