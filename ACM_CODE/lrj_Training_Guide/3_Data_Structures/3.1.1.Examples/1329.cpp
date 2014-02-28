@@ -34,17 +34,18 @@ int main() {
 	while (t--) {
 		RI(n);
 		rep (i, n) f[i] = i, d[i] = 0;
-		while (RS(op) && op[0] != '0') {
+		while (RS(op)) {
 			if (op[0] == 'E') {
 				RI(u);
 				find(u);
 				printf("%d\n", d[u]);
 			}
-			else {
+			else if (op[0] == 'I') {
 				RII(u, v);
 				f[u] = v;
 				d[u] = abs(u - v) % 1000;
 			}
+			else break;
 		}
 	}
 	return 0;
