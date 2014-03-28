@@ -96,7 +96,7 @@ int main()
 			f.push_back(MP(fn, v));
 			cin >> usr >> grp;
 			fu[fn] = usr;
-			fg[fn] = fn;
+			fg[fn] = grp;
 		}
 
 		rep (i, n) {
