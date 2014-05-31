@@ -2,7 +2,7 @@
 *  Author:      illuz <iilluzen[at]gmail.com>
 *  File:        b.cpp
 *  Create Date: 2014-05-30 23:40:23
-*  Descripton:  This code will Accepted by VC++ but WA by G++... Though I run it all right in local...
+*  Descripton:  Fixed
 */
 
 #include <cstdio>
@@ -17,7 +17,7 @@ char a[N];
 void boo() {
 	for (int i = 0; i < len; i++) {
 		int p = i;	// p是后面能换的那些数中最大的位置
-		for (int j = 1; j <= k && j < len; j++) {
+		for (int j = 1; j <= k && i + j < len; j++) {
 			if (a[i + j] > a[p]) {
 				p = i + j;
 			}
