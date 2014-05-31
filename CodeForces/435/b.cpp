@@ -2,7 +2,7 @@
 *  Author:      illuz <iilluzen[at]gmail.com>
 *  File:        b.cpp
 *  Create Date: 2014-05-30 23:40:23
-*  Descripton:   
+*  Descripton:  This code will Accepted by VC++ but WA by G++... Though I run it all right in local...
 */
 
 #include <cstdio>
