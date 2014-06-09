@@ -4,3 +4,4 @@ in
 out
 *.swp
 *.unsolve
+_test.*
