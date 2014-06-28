@@ -40,9 +40,9 @@ int main() {
 				no++;
 			}
 
-			if (sum > tot) {
+			if (sum > tot) {	// if success
 				for (int j = 0; j < scnt; j++) {
-					if (sum - a[sub[j]] <= tot) {
+					if (sum - a[sub[j]] <= tot) {	// find out
 						ans[sub[j]]++;
 					}
 				}
