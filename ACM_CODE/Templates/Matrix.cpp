@@ -16,13 +16,14 @@ using namespace std;
 typedef long long ll;
 
 const int N = 10;
+const int MOD = 1e9+7;
 
 // 1. change N
 struct Matrix {
 	int n;			// n*n matrix
 	int v[N][N];	// value of matrix
 
-	Matrix(int _v = 1) {
+	Matrix(int _v = 0) {
 		init();
 		repf (i, 0, N)
 			v[i][i] = _v;
@@ -35,9 +36,9 @@ struct Matrix {
 	Matrix operator * (const Matrix &b) const {
 		Matrix c;
 		c.init();
-		repf (i, 0, cnt - 1)
-			rpef (j, 0, cnt - 1)
-				repf (k, 0, cnt - 1)
+		repf (i, 0, n - 1)
+			repf (j, 0, n - 1)
+				repf (k, 0, n - 1)
 					c.v[i][j] = (c.v[i][j] + (v[i][k] * b.v[k][j]) % MOD) % MOD;
 		return c;
 	}
@@ -55,6 +56,7 @@ struct Matrix {
 };
 
 int main() {
+	Matrix a, b, c;
 
 	return 0;
 }
