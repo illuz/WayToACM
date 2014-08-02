@@ -13,11 +13,11 @@ using namespace std;
 #include <cmath>
 
 int main() {
-	double a, b;
-	scanf("%lf%lf", &a, &b);
-	double sum = a;
-	for(int i = 1; i <= a; i++) {
-		sum -= pow((i-1) * 1.0 / (a), b);
+	double m, n;
+	scanf("%lf%lf", &m, &n);
+	double sum = m;
+	for(int i = 1; i <= m; i++) {
+		sum -= pow((i-1) * 1.0 / m, n);
 	}
 	printf("%f\n", sum);
 	return 0;

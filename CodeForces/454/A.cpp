@@ -10,12 +10,11 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-#define RI(x) scanf("%d",&x)
 #define rep(i,n) for(int i=0;i<(n);i++)
 
 int main() {
 	int n;
-	RI(n);
+	cin >> n;
 
 	int t = n / 2;
 	rep (i, n) {

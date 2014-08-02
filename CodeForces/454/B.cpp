@@ -10,29 +10,29 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-#define repf(i,a,b) for(int i=(a);i<=(b);i++)
-#define RI(x) scanf("%d",&x)
-#define PIN(x) printf("%d\n",x)
 #define rep(i,n) for(int i=0;i<(n);i++)
 
 const int N = 1e5+10;
 int n, a[N];
 
-int main() {
-	RI(n);
-	rep (i, n) RI(a[i]);
+void read() {
+	scanf("%d", &n);
+	rep (i, n)
+		scanf("%d", &a[i]);
+}
+
+int solve() {
 	if (a[0] < a[n-1]) {
-		bool f = 1;
+		// must no decreace
 		rep (i, n - 1) {
 			if (a[i] > a[i + 1]) {
-				f = 0;
-				break;
+				return -1;
 			}
 		}
-		if (f) PIN(0);
-		else PIN(-1);
 		return 0;
 	}
+
+	// find first
 	int i = 0;
 	while (i < n - 1) {
 		if (a[i] > a[i+1]) {
@@ -40,20 +40,26 @@ int main() {
 		}
 		i++;
 	}
-	int p = ++i;
+	int p = ++i;	// record
 
+	// find second
 	while (i < n - 1) {
 		if (a[i] > a[i+1]) {
 			break;
 		}
 		i++;
 	}
-	if (i >= n - 1) {
-		PIN(n - p);
-	} else {
-		PIN(-1);
-	}
 
+	if (i >= n - 1) {
+		return n - p;
+	} else {
+		return -1;
+	}
+}
+
+int main() {
+	read();
+	printf("%d\n", solve());
 	return 0;
 }
 
