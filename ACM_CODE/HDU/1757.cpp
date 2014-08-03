@@ -1,8 +1,9 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
-*  File:        Matrix.cpp
-*  Create Date: 2014-07-31 10:35:19
-*  Descripton:  Matrix template 
+*  Blog:        http://blog.csdn.net/hcbbt
+*  File:        1757.cpp
+*  Create Date: 2014-08-03 09:24:45
+*  Descripton:  Matrix quick power 
 */
 
 #include <cstdio>
@@ -67,9 +68,35 @@ Mat operator ^ (Mat a, ll k) {
 	return c;
 }
 
-int main() {
-	Mat a, b, c;
+void init() {
+	// init
+	repf (i, 0, 9)
+		a.v[9 - i][0] = i;
+	repf (i, 0, 8)
+		b.v[i + 1][i] = 1;
+}
 
+void solve() {
+	// read
+	repf (i, 0, 9)
+		scanf("%lld", &b.v[0][i]);
+
+	Mat c;
+	if (k <= 9) {
+		printf("%lld\n", k % MOD);
+	} else {
+		c = b ^ (k - 9);
+//		c.output();
+		c = c * a;
+		printf("%lld\n", c.v[0][0] % MOD);
+	}
+}
+
+int main() {
+	init();
+	while (~scanf("%lld%lld", &k, &MOD)) {
+		solve();
+	}
 	return 0;
 }
 

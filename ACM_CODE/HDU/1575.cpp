@@ -1,8 +1,9 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
-*  File:        Matrix.cpp
-*  Create Date: 2014-07-31 10:35:19
-*  Descripton:  Matrix template 
+*  Blog:        http://blog.csdn.net/hcbbt
+*  File:        1575.cpp
+*  Create Date: 2014-08-03 08:50:20
+*  Descripton:  matrix quick pow
 */
 
 #include <cstdio>
@@ -10,13 +11,16 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
+#include <cmath>
+#include <cstdlib>
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 typedef long long ll;
 
-const int N = 20;
-const int SIZE = 20;		// max size of the matrix
+const int N = 0;
+const int SIZE = 11;
+const int MOD = 9973;
 
-ll k, MOD;
+int t, n, k;
 
 struct Mat{
 	int n;
@@ -28,26 +32,17 @@ struct Mat{
 	}
 
 	void init(ll _v) {
-		repf (i, 0, n - 1)
+		repf (i, 0, n)
 			v[i][i] = _v;
 	}
-
-	void output() {
-		repf (i, 0, n - 1) {
-			repf (j, 0, n - 1)
-				printf("%lld ", v[i][j]);
-			puts("");
-		}
-		puts("");
-	}
-} a, b;
+} a;
 
 Mat operator * (Mat a, Mat b) {
 	Mat c(a.n);
-	repf (i, 0, a.n - 1) {
-		repf (j, 0, a.n - 1) {
+	repf (i, 0, n - 1) {
+		repf (j, 0, n - 1) {
 			c.v[i][j] = 0;
-			repf (k, 0, a.n - 1) {
+			repf (k, 0, n - 1) {
 				c.v[i][j] += (a.v[i][k] * b.v[k][j]) % MOD;
 				c.v[i][j] %= MOD;
 			}
@@ -67,9 +62,31 @@ Mat operator ^ (Mat a, ll k) {
 	return c;
 }
 
-int main() {
-	Mat a, b, c;
+void read() {
+	scanf("%d%d", &n, &k);
+	a.n = n;
 
-	return 0;
+	repf (i, 0, n - 1)
+		repf (j, 0, n - 1) {
+			scanf("%lld", &a.v[i][j]);
+		}
 }
 
+void solve() {
+	Mat b = a ^ k;
+	ll res = 0;
+	repf (i, 0, n - 1) {
+		res += b.v[i][i];
+		res %= MOD;
+	}
+	printf("%lld\n", res);
+}
+
+int main() {
+	scanf("%d", &t);
+	while (t--) {
+		read();
+		solve();
+	}
+	return 0;
+}
