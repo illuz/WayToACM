@@ -1,9 +1,9 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
 *  Blog:        http://blog.csdn.net/hcbbt
-*  File:        1166.cpp
-*  Create Date: 2014-08-04 23:52:52
-*  Descripton:   
+*  File:        1394_segment_tree.cpp
+*  Create Date: 2014-08-05 10:08:42
+*  Descripton:  segment tree 
 */
 
 #include <iostream>
@@ -18,7 +18,7 @@ using namespace std;
 
 typedef long long ll;
 
-const int N = 50000;
+const int N = 5010;
 const int ROOT = 1;
 
 // below is sement point updated
@@ -35,7 +35,7 @@ struct segment_tree {
 
 	void build(int l, int r, int pos) {
 		if (l == r) {
-			scanf("%lld", &node[pos].w);
+			node[pos].w = 0;
 			return;
 		}
 		int m = (l + r) >> 1;
@@ -70,28 +70,43 @@ struct segment_tree {
 			res += query(m + 1, r, rson(pos), x, y);
 		return res;
 	}
+
+	// remove the point that the sum of [0, it] is x, return its id
+	int remove(int l, int r, int pos, ll x) {
+		if (l == r) {
+			node[pos].w = 0;
+			return l;
+		}
+		int m = (l + r) >> 1;
+		int res;
+		if (x < node[lson(pos)].w)
+			res = remove(l, m, lson(pos), x);
+		else
+			res = remove(m + 1, r, rson(pos), x - node[lson(pos)].w);
+		update(pos);
+		return res;
+	}
 } sgm;
 
-int t, n, a;
-ll b;
-char op[10];
+int n, a[N], b[N], t, sum, mmin;
 
 int main() {
-	scanf("%d", &t);
-	repf (cas, 1, t) {
-		printf("Case %d:\n", cas);
-		scanf("%d", &n);
+	while (~scanf("%d", &n)) {
 		sgm.build(1, n, ROOT);
-		while (~scanf("%s", op) && op[0] != 'E') {
-			scanf("%d%lld", &a, &b);
-			if (op[0] == 'A') {
-				sgm.modify(1, n, ROOT, a, b);
-			} else if (op[0] == 'S') {
-				sgm.modify(1, n, ROOT, a, -b);
-			} else {
-				printf("%lld\n", sgm.query(1, n, ROOT, a, (int)b));
-			}
+		sum = 0;
+		repf (i, 1, n)
+			scanf("%d", &a[i]);
+		for (int i = n; i >= 1; i--) {
+			b[i] = sgm.query(1, n, ROOT, 1, a[i] + 1);
+			sum += b[i];
+			sgm.modify(1, n, ROOT, a[i] + 1, 1);
 		}
+		mmin = sum;
+		repf (i, 1, n) {
+			sum = sum - a[i] + (n - 1 - a[i]);
+			mmin = min(mmin, sum);
+		}
+		cout << mmin << endl;
 	}
 	return 0;
 }
