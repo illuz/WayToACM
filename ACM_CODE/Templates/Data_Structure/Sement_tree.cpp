@@ -91,11 +91,20 @@ struct segment_tree {
 
 
 
+
 // there follows the segment updated version
 
+#define lson(x) ((x) << 1)
+#define rson(x) ((x) << 1 | 1)
+
+typedef long long ll;
+
+const int N = 50000;
+const int ROOT = 1;
+
 struct seg {
-	bool w;
-	int flag;
+	ll w;
+	ll flag;
 };
 
 struct segment_tree {
@@ -123,10 +132,10 @@ struct segment_tree {
 		seg& rhs = node[rson(pos)];
 		int len = r - l + 1;
 		if (fa.flag) {
-			ls.flag += fa.flag;
-			rs.flag += fa.flag;
-			ls.w += fa.flag * (len - (len >> 1));
-			rs.w += fa.flag * (len >> 1);
+			lhs.flag += fa.flag;
+			rhs.flag += fa.flag;
+			lhs.w += fa.flag * (len - (len >> 1));
+			rhs.w += fa.flag * (len >> 1);
 			fa.flag = 0;
 		}
 	}
@@ -152,6 +161,7 @@ struct segment_tree {
 	ll query(int l, int r, int pos, int x, int y) {
 		if (x <= l && r <= y)
 			return node[pos].w;
+		push(l, r, pos);
 		int m = (l + r) >> 1;
 		ll res = 0;
 		if (x <= m)
