@@ -56,7 +56,7 @@ void find_scc() {
 	memset(low, 0, sizeof(low));
 	memset(sccno, 0, sizeof(sccno));
 
-	repf (i, 1, n) {
+	repf (i, 0, n - 1) {
 		if (!dfn[i]) {
 			tarjan(i);
 		}
@@ -71,6 +71,8 @@ void read() {
 
 	while (m--) {
 		scanf("%d%d", &x, &y);
+		x--;
+		y--;
 		G[x].push_back(y);
 	}
 }
@@ -82,7 +84,7 @@ int solve() {
 	memset(id, 0, sizeof(id));
 	memset(od, 0, sizeof(od));
 
-	repf (u, 1, n) {
+	repf (u, 0, n - 1) {
 		int sz = G[u].size();
 		repf (i, 0, sz - 1) {
 			int v = G[u][i];

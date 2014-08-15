@@ -61,15 +61,16 @@ int tarjan(int u, int fa) {		// current node and father node
 					if (x.u == u && x.v == v)
 						break;
 				}
-			} else if (dfn[v] < dfn[u] && v != fa) {		// undirected so v != fa
-				S.push(e);
-				lowu = min(lowu, dfn[v]);
 			}
+		} else if (dfn[v] < dfn[u] && v != fa) {		// undirected so v != fa
+			S.push(e);
+			lowu = min(lowu, dfn[v]);
 		}
-		if (fa < 0 && child == 1)	// if u is root
-			iscut[u] = 0;
-		return lowu;
+
 	}
+	if (fa < 0 && child == 1)	// if u is root
+		iscut[u] = 0;
+	return lowu;
 }
 
 void find_bcc(int n) {
