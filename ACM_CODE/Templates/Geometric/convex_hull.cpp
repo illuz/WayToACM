@@ -59,7 +59,7 @@ double dist(Point a,Point b) {
 bool _cmp(Point p1,Point p2) {
 	double tmp = (p1-list[0])^(p2-list[0]);
 	if(sgn(tmp) > 0)return true;
-	else if(sgn(tmp) == 0 && sgn(dist(p1,list[0]) - dist(p2,list[0])) <= 0)
+	else if(sgn(tmp) == 0 && sgn(dist(p1,list[0]) - dist(p2,list[0])) >= 0)
 		return true;
 	else return false;
 }
