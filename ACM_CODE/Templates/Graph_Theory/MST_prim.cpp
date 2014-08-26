@@ -1,3 +1,7 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
 #define INF 1000000
 #define MAXN 21			//vex max
 int n, m;				//vex,edge

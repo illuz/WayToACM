@@ -6,10 +6,7 @@
 *  Descripton:  Template of segment tree, modified from windalex
 */
 
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 

@@ -5,11 +5,7 @@
 *  Descripton:  Matrix template 
 */
 
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <map>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 typedef long long ll;

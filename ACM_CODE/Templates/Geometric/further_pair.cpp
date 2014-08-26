@@ -6,10 +6,7 @@
 *  Descripton:  rotating calipers 
 */
 
-#include <cstdio>
-#include <cstring>
-#include <cmath>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define sqr(a) ((a) * (a))

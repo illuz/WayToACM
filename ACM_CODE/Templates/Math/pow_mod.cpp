@@ -5,12 +5,8 @@
 *  Descripton:  abmod, pow_mod, super_mod 
 */
 
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-#include <cmath>
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 typedef long long ll;
 

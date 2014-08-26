@@ -6,10 +6,7 @@
 *  Descripton:  network flow, sap
 */
 
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 
@@ -30,7 +27,8 @@ int gap[N];
 int head[N];
 int tot;
 
-int n, m;
+int n, m, sn, tn, u, v;
+ll w;
 
 void addedge(int u, int v, ll w) {
 	edge[tot].from = u;
@@ -49,7 +47,7 @@ bool BFS(int S, int T) {
 	int Q[N];
 	int op = 0, ed = 0;
 	memset(dep, -1, sizeof(dep));
-	memset(gap, -1, sizeof(gap));
+	memset(gap, 0, sizeof(gap));
 	Q[ed++] = T;
 	dep[T] = 0;
 	gap[0] = 1;
@@ -73,7 +71,7 @@ ll SAP(int S, int T) {
 	BFS(S, T);
 
 	ll res = 0;
-	int top;
+	int top = 0;
 	int stack[N], cur[N];
 	memcpy(cur, head, sizeof(head));
 	int u = S;

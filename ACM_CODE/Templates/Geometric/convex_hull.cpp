@@ -9,11 +9,7 @@
 *  返回凸包结果Stack[0~top-1]为凸包的编号
 */
 
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-#include <cmath>
+#include <bits/stdc++.h>
 using namespace std;
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 
