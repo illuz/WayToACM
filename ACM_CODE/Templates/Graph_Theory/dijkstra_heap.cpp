@@ -5,13 +5,8 @@
 *  Descripton:  dijkstra 
 */
 
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-#include <vector>
-#include <queue>
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
 
 const int N = 50100;
