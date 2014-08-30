@@ -1,33 +1,36 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
+*  Blog:        http://blog.csdn.net/hcbbt
 *  File:        A.cpp
-*  Create Date: 2014-08-26 22:06:35
+*  Create Date: 2014-08-30 15:41:45
 *  Descripton:   
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 #define repf(i,a,b) for(int i=(a);i<=(b);i++)
-#define RI(x) scanf("%d",&x)
+
 typedef long long ll;
 
-const int N = 3e5 + 10;
+const int N = 110;
 
-int n, arr[N];
-ll sum;
+int x[N], y[N];
+int n, s;
 
 int main() {
-	while (~RI(n)) {
-		repf (i, 0, n - 1) {
-			RI(arr[i]);
+	int mmax = -1;
+	scanf("%d%d", &n, &s);
+	repf (i, 1, n) {
+		scanf("%d%d", &x[i], &y[i]);
+		if (x[i] < s) {
+			mmax = max(mmax, (100 - y[i]) % 100);
 		}
-		sort(arr, arr + n);
-		sum = -arr[n - 1];
-		repf (i, 0, n - 1) {
-			sum += (ll)(i + 2) * arr[i];
+		if (x[i] == s && y[i] == 0) {
+			mmax = max(mmax, 0);
 		}
-		cout << sum << endl;
 	}
+	printf("%d\n", mmax);
+
 	return 0;
 }
 
