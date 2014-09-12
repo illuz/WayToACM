@@ -32,7 +32,6 @@ void Out(int a) {
 const int N = 0;
 
 int main() {
-
 	return 0;
 }
 
