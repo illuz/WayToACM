@@ -5,3 +5,4 @@ out
 *.swp
 *.unsolve
 _test.*
+a.out.*/
