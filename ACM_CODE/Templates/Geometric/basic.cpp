@@ -28,8 +28,17 @@ struct Point {
 	Point(double _x, double _y) {
 		x = _x; y = _y;
 	}
+
 	Point operator -(const Point &b) const {
 		return Point(x - b.x, y - b.y);
+	}
+
+	Point operator +(const Point &b) const {
+		return Point(x + b.x, y + b.y);
+	}
+
+	Point operator *(const double &b) const {
+		return Point(x * b, y * b);
 	}
 
 	//叉积
@@ -46,6 +55,19 @@ struct Point {
 		double tx = x,ty = y;
 		x = tx*cos(B) - ty*sin(B);
 		y = tx*sin(B) + ty*cos(B);
+	}
+
+	bool operator ==(const Point &b) const {
+		return x == b.x && y == b.y;
+	}
+
+	void read() {
+		scanf("%lf", &x);
+		scanf("%lf", &y);
+	}
+
+	void print() {
+		printf("debug: x = %f, y = %f\n", x, y);
 	}
 };
 
