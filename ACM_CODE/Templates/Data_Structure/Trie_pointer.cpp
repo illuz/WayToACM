@@ -27,7 +27,7 @@ struct PTrie {
 	Node *root;
 	PTrie() { root = newNode(); }
 	void init() { del(root); root = newNode(); }
-	inline int idx(char c) { return c - 'a'; }
+	inline int idx(char c) { return c ? c - 'a' : 0; }
 
 	Node *newNode() {
 		Node *u = new Node;

@@ -32,7 +32,7 @@ struct PTrie {
 	Node *root;
 	PTrie() { root = newNode(); }
 	void init() { del(root); root = newNode(); }
-	inline int idx(char c) { return c - 'a'; }
+	inline int idx(char c) { return c ? c - 'a' : c; }
 
 	Node *newNode() {
 		Node *u = new Node;
@@ -62,8 +62,6 @@ struct PTrie {
 		repf (i, 0, len) {		// remember to len
 			if (u->val)
 				cnt = (cnt + d[pos + i]) % MOD;
-			if (i == len)		// prevent to voer the string
-				return cnt;
 			int c = idx(s[i]);
 			if (u->next[c] == NULL)
 				return cnt;
