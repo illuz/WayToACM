@@ -25,54 +25,35 @@ int sgn(double x) {
 struct Point {
 	double x, y;
 	Point() {}
-	Point(double _x, double _y) {
-		x = _x; y = _y;
-	}
-
-	Point operator -(const Point &b) const {
-		return Point(x - b.x, y - b.y);
-	}
-
-	Point operator +(const Point &b) const {
-		return Point(x + b.x, y + b.y);
-	}
-
-	Point operator *(const double &b) const {
-		return Point(x * b, y * b);
-	}
-
+	Point(double _x, double _y) { x = _x; y = _y; }
+	Point operator +(const Point &B) const { return Point(x + B.x, y + B.y); }
+	Point operator -(const Point &B) const { return Point(x - B.x, y - B.y); }
+	Point operator *(const double &b) const { return Point(x * b, y * b); }
+	Point operator /(const double &b) const { return Point(x / b, y / b); }
 	//叉积
-	double operator ^(const Point &b) const {
-		return x*b.y - y*b.x;
-	}
-
+	double operator ^(const Point &B) const { return x*B.y - y*B.x; }
 	//点积
-	double operator *(const Point &b) const {
-		return x*b.x + y*b.y;
-	}
-	//绕原点旋转角度B(弧度值),后x,y的变化
-	void transXY(double B) {
-		double tx = x,ty = y;
-		x = tx*cos(B) - ty*sin(B);
-		y = tx*sin(B) + ty*cos(B);
-	}
+	double operator *(const Point &B) const { return x*B.x + y*B.y; }
+	bool operator ==(const Point &B) const {return x == B.x && y == B.y; }
 
-	bool operator ==(const Point &b) const {
-		return x == b.x && y == b.y;
-	}
-
-	void read() {
-		scanf("%lf", &x);
-		scanf("%lf", &y);
-	}
-
-	void print() {
-		printf("debug: x = %f, y = %f\n", x, y);
-	}
+	void read() { scanf("%lf", &x); scanf("%lf", &y); }
+	void output() { printf("debug: x = %f, y = %f\n", x, y); }
 };
 
-struct Line
-{
+typedef Point Vector;
+
+double length(const Vector& A) { return sqrt(A*A); }
+double angle(const Vector& A, const Vector& B) { return acos(A*B / length(A) / length(B)); }
+Vector rotate(Vector& A, double ang) {return Vector(A.x * cos(ang) - A.y * sin(ang), A.x * sin(ang) + A.y * cos(ang)); }
+
+Point getLineIntersection(const Point &P, const Vector &v, const Point &Q, const Vector &w) {
+	Vector u = P - Q;
+	double t = (w ^ u) / (v ^ w);
+	return P + v * t;
+}
+
+
+struct Line {
 	Point s,e;
 	Line(){}
 	Line(Point _s,Point _e) {
@@ -97,9 +78,7 @@ struct Line
 };
 
 //*两点间距离
-double dist(Point a,Point b) {
-	return sqrt((a-b)*(a-b));
-}
+double dist(Point a,Point b) {return sqrt((a-b)*(a-b)); }
 
 //*判断线段相交
 bool inter(Line l1,Line l2) {

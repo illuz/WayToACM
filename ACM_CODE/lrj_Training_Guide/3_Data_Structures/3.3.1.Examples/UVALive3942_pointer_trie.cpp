@@ -56,9 +56,9 @@ struct PTrie {
 		u->val = v;
 	}
 
-	int find(char *s, int pos) {
+	int find(char *s, int len, int pos) {
 		Node*u = root;
-		int len = strlen(s), cnt = 0;
+		int cnt = 0;
 		repf (i, 0, len) {		// remember to len
 			if (u->val)
 				cnt = (cnt + d[pos + i]) % MOD;
@@ -67,6 +67,7 @@ struct PTrie {
 				return cnt;
 			u = u->next[c];
 		}
+		return cnt;
 	}
 
 	void del(Node *rt) {
@@ -95,7 +96,7 @@ int main() {
 		d[len] = 1;
 		int i = len - 1;
 		while (i >= 0) {
-			d[i] = trie.find(st + i, i);
+			d[i] = trie.find(st + i, len - i, i);
 			i--;
 		}
 		printf("Case %d: %d\n", cas++, d[0]);

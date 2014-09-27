@@ -159,11 +159,11 @@ int main() {
 		mmin = 1e9;
 		mmax = -1e9;
 		while (sa < a - 1 && sb < b - 1) {
-			double al = 1 / dist(p[sa + 1], pa);
-			double bl = 1 / dist(q[sb + 1], pb);
+			double al = dist(p[sa + 1], pa);
+			double bl = dist(q[sb + 1], pb);
 			double T = min(al/lenA, bl/lenB);
-			Point va = (p[sa + 1] - pa) * al * T * lenA;
-			Point vb = (p[sb + 1] - pb) * bl * T * lenB;
+			Point va = (p[sa + 1] - pa) * (1 / al) * T * lenA;
+			Point vb = (q[sb + 1] - pb) * (1 / bl) * T * lenB;
 			update(pa, pb, pb + vb - va);
 			pa = pa + va;
 			pb = pb + vb;

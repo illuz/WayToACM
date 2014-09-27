@@ -47,8 +47,8 @@ struct ATrie {
 	}
 
 	// if s in trie return the value, else return 0
-	int find(char *s, int pos) {
-		int u = 0, len = strlen(s), cnt = 0;
+	int find(char *s, int len, int pos) {
+		int u = 0, cnt = 0;
 		repf (i, 0, len) {
 			int c = idx(s[i]);
 			if (val[u])
@@ -59,6 +59,7 @@ struct ATrie {
 			else
 				return cnt;
 		}
+		return cnt;
 	}
 } trie;
 
@@ -76,7 +77,7 @@ int main() {
 		int len = strlen(st);
 		d[len] = 1;
 		for (int i = len - 1; i >= 0; i--) {
-			d[i] = trie.find(st + i, i);
+			d[i] = trie.find(st + i, len - i, i);
 		}
 		printf("Case %d: %d\n", cas++, d[0]);
 	}
