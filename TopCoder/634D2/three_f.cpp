@@ -29,18 +29,7 @@ public:
 		}
 		if (pos == 0)
 			return "";
-		for (int i = len - 1; i >= 0; i--) {
-			if (s[i] == '0') {
-				s[i] = '1';
-				repf (j, i + 1, len - 1)
-					s[j] = s[j - i - 1];
-				if (i == len - 1)
-					return s;
-				else
-					i = len;
-			}
-		}
-		return s;
+		return s.substr(0, pos) + "1" + findNext(s.substr(0, len - pos - 1));
 	}
 };
 
