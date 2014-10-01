@@ -16,10 +16,9 @@ const int N = 0;
 const double eps = 1e-8;
 const double PI = acos(-1.0);
 
-int sgn(double x) {
+int dcmp(double x) {
 	if (fabs(x) < eps) return 0;
-	if (x < 0) return -1;
-	else return 1;
+	return x < 0 ? -1 : 1;
 }
 
 struct Point {
@@ -34,7 +33,8 @@ struct Point {
 	double operator ^(const Point &B) const { return x*B.y - y*B.x; }
 	//点积
 	double operator *(const Point &B) const { return x*B.x + y*B.y; }
-	bool operator ==(const Point &B) const {return x == B.x && y == B.y; }
+	bool operator ==(const Point &B) const { return x == B.x && y == B.y; }
+	bool operator <(const Point &B) const { return x < B.x || (x == B.x && y < B.y) };
 
 	void read() { scanf("%lf", &x); scanf("%lf", &y); }
 	void output() { printf("debug: x = %f, y = %f\n", x, y); }
@@ -52,7 +52,6 @@ Point getLineIntersection(const Point &P, const Vector &v, const Point &Q, const
 	return P + v * t;
 }
 
-
 struct Line {
 	Point s,e;
 	Line(){}
@@ -65,8 +64,8 @@ struct Line {
 	//只有第一个值为2时,交点才有意义
 	pair<int,Point> operator &(const Line &b)const {
 		Point res = s;
-		if(sgn((s-e)^(b.s-b.e)) == 0) {
-			if(sgn((s-b.e)^(b.s-b.e)) == 0)
+		if(dcmp((s-e)^(b.s-b.e)) == 0) {
+			if(dcmp((s-b.e)^(b.s-b.e)) == 0)
 				return make_pair(0,res);//重合
 			else return make_pair(1,res);//平行
 		}
@@ -87,14 +86,14 @@ bool inter(Line l1,Line l2) {
 		max(l2.s.x,l2.e.x) >= min(l1.s.x,l1.e.x) &&
 		max(l1.s.y,l1.e.y) >= min(l2.s.y,l2.e.y) &&
 		max(l2.s.y,l2.e.y) >= min(l1.s.y,l1.e.y) &&
-		sgn((l2.s-l1.e)^(l1.s-l1.e)) * sgn((l2.e-l1.e)^(l1.s-l1.e)) <= 0 &&
-		sgn((l1.s-l2.e)^(l2.s-l2.e)) * sgn((l1.e-l2.e)^(l2.s-l2.e)) <= 0;
+		dcmp((l2.s-l1.e)^(l1.s-l1.e)) * dcmp((l2.e-l1.e)^(l1.s-l1.e)) <= 0 &&
+		dcmp((l1.s-l2.e)^(l2.s-l2.e)) * dcmp((l1.e-l2.e)^(l2.s-l2.e)) <= 0;
 }
 
 //判断直线和线段相交
 bool Seg_inter_line(Line l1,Line l2) //判断直线l1和线段l2是否相交
 {
-	return sgn((l2.s-l1.e)^(l1.s-l1.e)) * sgn((l2.e-l1.e)^(l1.s-l1.e));
+	return dcmp((l2.s-l1.e)^(l1.s-l1.e)) * dcmp((l2.e-l1.e)^(l1.s-l1.e));
 }
 
 //点到直线距离
@@ -135,9 +134,9 @@ double CalcArea(Point p[],int n) {
 //*判断点在线段上
 bool OnSeg(Point P,Line L) {
 	return
-		sgn((L.s-P)^(L.e-P)) == 0 &&
-		sgn((P.x - L.s.x) * (P.x - L.e.x)) <= 0 &&
-		sgn((P.y - L.s.y) * (P.y - L.e.y)) <= 0;
+		dcmp((L.s-P)^(L.e-P)) == 0 &&
+		dcmp((P.x - L.s.x) * (P.x - L.e.x)) <= 0 &&
+		dcmp((P.y - L.s.y) * (P.y - L.e.y)) <= 0;
 }
 
 //*判断点在凸多边形内
@@ -149,7 +148,7 @@ bool OnSeg(Point P,Line L) {
 //1:点在凸多边形内
 int inConvexPoly(Point a,Point p[],int n) {
 	for(int i = 0;i < n;i++) {
-		if(sgn((p[i]-a)^(p[(i+1)%n]-a)) < 0) return -1;
+		if(dcmp((p[i]-a)^(p[(i+1)%n]-a)) < 0) return -1;
 		else if(OnSeg(a,Line(p[i],p[(i+1)%n]))) return 0;
 	}
 	return 1;
@@ -173,12 +172,12 @@ int inPoly(Point p,Point poly[],int n) {
 		side.e = poly[(i+1)%n];
 		if(OnSeg(p,side)) return 0;
 		//如果平行轴则不考虑
-		if(sgn(side.s.y - side.e.y) == 0)
+		if(dcmp(side.s.y - side.e.y) == 0)
 			continue;
 		if(OnSeg(side.s,ray)) {
-			if(sgn(side.s.y - side.e.y) > 0) cnt++;
+			if(dcmp(side.s.y - side.e.y) > 0) cnt++;
 		} else if(OnSeg(side.e,ray)) {
-			if(sgn(side.e.y - side.s.y) > 0) cnt++;
+			if(dcmp(side.e.y - side.s.y) > 0) cnt++;
 		}
 		else if(inter(ray,side))
 			cnt++;
@@ -195,7 +194,7 @@ bool isconvex(Point poly[],int n) {
 	bool s[3];
 	memset(s,false,sizeof(s));
 	for(int i = 0;i < n;i++) {
-		s[sgn( (poly[(i+1)%n]-poly[i])^(poly[(i+2)%n]-poly[i]) )+1] = true;
+		s[dcmp( (poly[(i+1)%n]-poly[i])^(poly[(i+2)%n]-poly[i]) )+1] = true;
 		if(s[0] && s[2])return false;
 	}
 	return true;
