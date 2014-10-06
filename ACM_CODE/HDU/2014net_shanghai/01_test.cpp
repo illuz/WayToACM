@@ -47,7 +47,6 @@ int main() {
 		cin >> n >> q;
 		repf (i, 1, n)
 			cin >> a[i];
-
 	}
 	return 0;
 }

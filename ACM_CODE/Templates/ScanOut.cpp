@@ -12,6 +12,25 @@ using namespace std;
 
 typedef long long ll;
 
+// long long version
+ll Scanll() {
+	ll res = 0, ch, flag = 0;
+	if((ch = getchar()) == '-')
+		flag = 1;
+	else if(ch >= '0' && ch <= '9')
+		res = ch - '0';
+	while ((ch = getchar()) >= '0' && ch <= '9' )
+		res = res * 10 + ch - '0';
+	return flag ? -res : res;
+}
+
+void Outll(ll a) {
+    if(a > 9)
+        Outll(a / 10);
+    putchar(a % 10 + '0');
+}
+
+// int version
 int Scan() {
 	int res = 0, ch, flag = 0;
 	if((ch = getchar()) == '-')

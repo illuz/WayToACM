@@ -20,22 +20,17 @@ const int N = 0;
 class ShoppingSurveyDiv1 {
 public:
 	int minValue(int N, int K, vector<int> s) {
-		int sz = s.size(), sum = 0;
-		repf (i, 0, sz - 1) sum += s[i];
-		// cout << "sum" << sum << endl;
-		if ((K - 1) * N >= sum)
-			return 0;
-		sort(s.begin(), s.end());
-
-		sum = 0;
-		repf (i, sz - K, sz - 1) {
-			sum += s[i];
+		for (int r = 0; r < N; r++) {
+			vector<int> x = s;
+			for (int & y : x) {
+				y = max(0, y - r);
+			}
+			int s = accumulate(x.begin(), x.end(), 0);
+			int mx = *max_element(x.begin(), x.end());
+			if (mx <= N - r && (K - 1) * (N - r) >= s) {
+				return r;
+			}
 		}
-		int t = N - (N * K - sum);
-		if (t < 0) t = 0;
-		if (N == K) return t;
-		else
-			return s[sz - K - 1];
 	}
 };
 
