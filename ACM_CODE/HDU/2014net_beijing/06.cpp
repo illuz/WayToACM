@@ -1,74 +1,75 @@
 /*
 *  Author:      illuz <iilluzen[at]gmail.com>
 *  File:        06.cpp
-*  Create Date: 2014-09-21 13:03:49
-*  Descripton:   
+*  Create Date: 2014-10-06 16:19:15
+*  Descripton:  greedy
 */
 
+// #define HDU
+// don't forget to change lld to I64d
+
+#ifdef HDU
 #include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <algorithm>
-using namespace std;
-
-#define repf(i,a,b) for(int i=(a);i<=(b);i++)
+#include <cmath>
+#include <cstdlib>
+#include <string>
+#include <list>
+#include <vector>
+#include <map>
+#include <set>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <sstream>
+#include <utility>
+#include <cctype>
+typedef __int64 ll;
+#else	// c++11
+#include <bits/stdc++.h>
 typedef long long ll;
+#endif
 
-const int N = 2e5 + 10;
+using namespace std;
+#define repf(i,a,b) for(int i=(a);i<=(b);i++)
 
-ll a[N], t;
-ll n, m, l;
+const int N = 200010;
+
+int x[N];
+int t, n, m, l, ans;
+int now, last;
 
 int main() {
-	ios_base::sync_with_stdio(0);
-	scanf("%lld", &t);
+	scanf("%d", &t);
 	repf (cas, 1, t) {
-		printf("Case %d: ", cas);
-		scanf("%lld%lld%lld", &n, &m, &l);
+		scanf("%d%d%d", &n, &m, &l);
 		repf (i, 1, n)
-			scanf("%lld", &a[i]);
-		a[0] = 0;
-		a[++n] = m;
-		sort(a + 1, a + n + 1);
-		ll ans = 0;
-		ll from = 0, to, next = 1;
-		while (next <= n && from < m) {
-			// try jump from i to next
-			to = a[next];
-			ll dis = to - from;
-			if (dis <= 0) {
-				next++;
-				continue;
-			}
-			
-			if (dis <= l) {
-				// jump farther
-				repf (j, next, n)
-					if (a[j] - from <= l)
-						next = j;
-					else
-						break;
-				if (a[next] - from == l) {
-					ans++;
-					from = a[next];
-					next++;
-				} else {
-					if (next == n) {
-						ans += 1;
-						break;
-					}
-					ans += 2;
-					from = a[next] + l;
-					next++;
-				}
-				cout << "small" << from << endl;
+			scanf("%d", &x[i]);
+		x[++n] = m;
+		sort(x + 1, x + n + 1);
+
+		now = ans = 0;
+		last = l + 1;
+		for (int i = 1; now < m; ) {
+			if (now + l >= x[i]) {
+				ans++;
+				while (i <= n && now + l >= x[i])
+					i++;
+				last = x[i - 1] - now;
+				now = x[i - 1];
 			} else {
-				ans += 2 * (dis / (l + 1));
-				from += dis / (l + 1) * (l + 1);
-				cout << "big" << from << endl;
+				int t = (x[i] - now) / (l + 1) - 1;
+				ans += t * 2 + 1;
+				now += t * (l + 1);
+				last = l + 1 - last;
+				now += last;
+				while (i <= n && x[i] <= now)
+					i++;
 			}
 		}
-		printf("%lld\n", ans);
+		printf("Case #%d: %d\n", cas, ans);
 	}
 	return 0;
 }
